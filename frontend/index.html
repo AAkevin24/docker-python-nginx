@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Usuários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>CRUD de Usuários</h1>
+
+    <div id="createFormContainer">
+        <h2>Adicionar Usuário</h2>
+        <form id="createUserForm">
+            <label>Nome: <input type="text" id="name" required></label><br>
+            <label>Idade: <input type="number" id="age" required></label><br>
+            <button type="submit">Adicionar</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <div id="editFormContainer" style="display: none;">
+        <h2>Editar Usuário</h2>
+        <form id="editUserForm">
+            <input type="hidden" id="editUserId">
+            <label>Nome: <input type="text" id="editName" required></label><br>
+            <label>Idade: <input type="number" id="editAge" required></label><br>
+            <button type="submit">Salvar Alterações</button>
+            <button type="button" onclick="cancelEdit()">Cancelar</button>
+        </form>
+        <p id="editMessage"></p>
+    </div>
+
+    <div>
+        <h2>Usuários</h2>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os usuários serão carregados aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: idade_db
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+    volumes:
+      - db-data-idade:/var/lib/mysql
+    secrets:
+      - mysql_root_password
+      - mysql_password
+    networks:
+      - idade-network
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_NAME: idade_db
+    depends_on:
+      - db
+    networks:
+      - idade-network
+    ports:
+      - "5000:5000"
+    secrets:
+      - mysql_root_password
+      - mysql_password
+
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    networks:
+      - idade-network
+    ports:
+      - "80:80"
+
+networks:
+  idade-network:
+    driver: bridge
+
+volumes:
+  db-data-idade:
+
+secrets:
+  mysql_root_password:
+    file: ./secrets/mysql_root_password.txt
+  mysql_password:
+    file: ./secrets/mysql_password.txt

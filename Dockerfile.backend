@@ -1,0 +1,19 @@
+#Dockerfile.backend
+
+FROM python:3.9-slim
+
+WORKDIR /app
+
+#Copiar os arquivos da aplicação
+COPY ./backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./backend .
+
+#Variáveis de ambiente
+ENV DB_HOST=db
+ENV DB_USER=root
+ENV DB_NAME=idade_db
+
+#Rodar a aplicação
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
